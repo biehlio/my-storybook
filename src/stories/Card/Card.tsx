@@ -1,7 +1,14 @@
-import PropTypes from "prop-types";
-import { options } from "./constants";
+import React from "react";
 import classNames from "classnames";
 import "./Card.css";
+
+export interface Props {
+  children: string;
+  color: string;
+  size: string;
+  isClickable: boolean;
+  isDragable: boolean;
+}
 
 export const Card = ({
   children = "I'm a card",
@@ -9,7 +16,7 @@ export const Card = ({
   size = "sm",
   isClickable,
   isDragable,
-}) => {
+}: Props) => {
   return (
     <div
       className={classNames("card", {
@@ -22,22 +29,6 @@ export const Card = ({
       {children}
     </div>
   );
-};
-
-export const CardProps = {
-  children: "I'm a card",
-  color: "primary",
-  size: "sm",
-  isClickable: false,
-  isDragable: false,
-};
-
-Card.propTypes = {
-  children: PropTypes.node.isRequired,
-  color: PropTypes.oneOf(options.colors),
-  size: PropTypes.oneOf(options.sizes),
-  isClickable: PropTypes.bool,
-  isDragable: PropTypes.bool,
 };
 
 export default Card;

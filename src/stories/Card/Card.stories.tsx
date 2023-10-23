@@ -1,30 +1,14 @@
 import React from "react";
-import type { Meta } from "@storybook/react";
-import { options as cardOptions } from "./constants";
-import Card, { CardProps } from "./Card";
+import { Meta, StoryObj } from "@storybook/react";
+import Card, { Props } from "./Card";
 
-const meta: Meta<typeof CardProps> = {
+const meta: Meta<Props> = {
   title: "Card",
-  component: ({
-    children,
-    color = "Primary",
-    size,
-    isClickable,
-    isDragable,
-  }: typeof CardProps) => (
-    <Card
-      color={color as string | undefined}
-      size={size as string | undefined}
-      isClickable={(isClickable as boolean) ?? false}
-      isDragable={(isDragable as boolean) ?? false}
-    >
-      {String(children)}
-    </Card>
-  ),
+  component: Card,
+  tags: ["autodocs"],
   argTypes: {
-    children: { control: "text" },
-    color: { control: "select", options: cardOptions.colors },
-    size: { control: "select", options: cardOptions.sizes },
+    color: { control: "select", options: ["primary", "secondary"] },
+    size: { control: "select", options: ["sm", "lg"] },
     isClickable: { control: "boolean" },
     isDragable: { control: "boolean" },
   },
@@ -32,63 +16,22 @@ const meta: Meta<typeof CardProps> = {
 
 export default meta;
 
-const CardTemplate: React.FC<{ items: (typeof CardProps)[] }> = ({ items }) => (
-  <>
-    {items.map((item, index) => (
-      <div style={{ width: "100%" }}>
-        <p>Color {item.color}</p>
-        <Card key={index} {...item} />
-      </div>
-    ))}
-  </>
-);
+type Story = StoryObj<typeof Card>;
 
-export const Colors = () => (
-  <CardTemplate
-    items={cardOptions.colors.map((color) => ({
-      color,
-      children: "",
-      size: "",
-      isClickable: false,
-      isDragable: false,
-    }))}
-  />
-);
+export const Base: Story = {};
 
-export const Sizes = () => (
-  <CardTemplate
-    items={cardOptions.sizes.map((size) => ({
-      size,
-      children: "",
-      color: "Primary",
-      isClickable: false,
-      isDragable: false,
-    }))}
-  />
-);
+export const Primary: Story = {
+  args: { color: "primary" },
+};
 
-const bools = [true, false];
+export const Secondary: Story = {
+  args: { color: "secondary" },
+};
 
-export const Clickable = () => (
-  <CardTemplate
-    items={bools.map((isClickable) => ({
-      isClickable,
-      children: "",
-      color: "Primary",
-      size: "",
-      isDragable: false,
-    }))}
-  />
-);
+export const Small: Story = {
+  args: { size: "sm" },
+};
 
-export const Dragable = () => (
-  <CardTemplate
-    items={bools.map((isDragable) => ({
-      isDragable,
-      children: "",
-      color: "Primary",
-      size: "",
-      isClickable: false,
-    }))}
-  />
-);
+export const Large: Story = {
+  args: { size: "lg" },
+};
