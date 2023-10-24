@@ -1,5 +1,6 @@
 import React from "react";
 import classNames from "classnames";
+import { PRIMARY_COLOR, SMALL_CARD } from "../../constants";
 import "./Card.css";
 
 export interface Props {
@@ -12,8 +13,8 @@ export interface Props {
 
 export const Card = ({
   children = "I'm a card",
-  color = "primary",
-  size = "sm",
+  color = PRIMARY_COLOR,
+  size = SMALL_CARD,
   isClickable,
   isDragable,
 }: Props) => {
